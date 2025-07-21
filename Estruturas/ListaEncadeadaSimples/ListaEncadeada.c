@@ -115,7 +115,32 @@ void remover_inicio(No **lp){
     return;
 }
 // Implementa remover_meio()
-void remover_meio(No **lp, int valorAnterior){
+void remover_meio(No **lp, int valor){
+    No *p; // Cria ponteiro para nó;
+    // Verifica se a lista está vazia.
+    if(*lp == NULL){
+        printf("Lista vazia.\n");
+        return;
+    }
+    p = *lp; // atribui o conteúdo de lp a p.
+    if(p->proximo == NULL){ // Caso de lista unitária.
+        *lp = NULL; // lista agora é vazia.
+        free(p);
+        printf("Elemento removido.\n");
+        return;
+    }
+    No *sai; // cria variável auxiliar que será retirada.
+    for(sai = p->proximo; sai->info != valor && sai->proximo != NULL; p = sai, sai = sai->proximo); // percorre lista até achar valor ou chegar no vetor nulo.
+    // Caso elemento não tenha sido encontrado.
+    if(sai->proximo == NULL){
+        printf("Elemento nao encontrado.\n");
+        return;
+    }
+    p->proximo = sai->proximo; // p agora aponta para onde sai aponta
+    free(sai); // libera memória de sai.
+
+    printf("Elemento removido com sucesso.\n");
+    return ;
 
 }
 // Implementa remover_fim()
@@ -176,6 +201,16 @@ void esvaziar_lista(No **lp){
     printf("Lista esvaziada com sucesso.\n"); // Printa mensagem de sucesso.
 
     return;
+
+}
+// Implementa concatenar_listas
+void concatenar_listas(No **inicio, No **final){
+    No *p; 
+
+    for(p = *inicio; p->proximo != NULL; p = p->proximo);
+    p->proximo = *final;
+    
+
 
 }
 
