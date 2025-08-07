@@ -8,130 +8,158 @@
  */
 // CABEÇALHO
 #include <stdio.h>
-#include <stlib.h>
+#include <stdlib.h>
 #include "ListaEstatica.h"
 
 // IMPLETAÇÕES DAS FUNÇÕES
 
-// Implementa cria_lista()
+// Implementa função para criação de lista. O controle deve ser iniciado com -1.
 void cria_lista(Lista *l){
-    l->ctr = -1; // Atribui valor -1 ao controle. Isso indica que a lista está vazia.
+    l->ctr = -1;
+    printf("Lista criada com sucesso.\n");
     return;
 }
-// Implementa insere_final()
-void insere_final(Lista *l, int n){
 
-    // Verifica se a lista esta cheia. Encerra chamado em caso afirmativo.
+// Implementa função para inserção de elemento no início da lista.
+void insere_inicio(Lista *l, int n){
+    // Verifica se a lista está cheia.
     if(lista_cheia(l)){
-        printf("Erro. Lista cheia.\n");
+        printf("Erro. A lista esta cheia.\n");
         return;
     }
-
-    l->ctr++; // incrementa controle. Indica que novo elemento será inserido.
-    l->vetor[l->ctr] = n; // Posiciona elemento na última posição da lista.
-
-    printf("Elemento inserido com sucesso.\n");
-    return;
-}
-// Implementa insere_meio().
-void insere_meio(Lista *l, int posicao, int n){
-    // Verifica se a lista esta cheia.
-    if(lista_cheia(l)){
-        printf("Erro. Lista cheia.\n");
-        return;
-    }
-    // Desloca todos os elementos a partir da posição à direita
-    for(int i = l->ctr; i >= posicao; i--)
-        vetor[i+1] = vetor[i];
-    l->vetor[posicao] = n; // insere elemento na posição.
+    // Desloca os elementos para direita.
+    for(int i = l->ctr; i >= 0; i--)
+        l->vetor[i+1] = l->vetor[i];
+    l->vetor[0] = n; // insere novo elemento passado como parâmetro.
     l->ctr++; // incrementa controle
 
     printf("Elemento inserido com sucesso.\n");
     return;
+
 }
-// Implementa insere_inicio()
-void insere_inicio(Lista *l, int n){
-    // Verifica se a lista esta cheia.
+
+// Implementa função para inserção de elemento no meio da lista.
+void insere_meio(Lista *l, int posicao, int n){
+    // Verifica se a lista está cheia.
+    if(lista_cheia(l)){
+        printf("Erro. A lista esta cheia.\n");
+        return;
+    }
+    // Desloca os elementos para a direita a partir da posição.
+    for(int i = l->ctr; i >= posicao; i--)
+        l->vetor[i+1] = l->vetor[i];
+    l->vetor[posicao] = n; // insere novo elemento passado como parãmetro.
+    l->ctr++; // incrementa controle.
+
+    printf("Elemento inserido com sucesso.\n");
+    return;
+
+}
+
+// Implementa função para inserção de elemento no fim da lista.
+void insere_final(Lista *l, int n){
+    // Verifica se a lista está cheia.
     if(lista_cheia(l)){
         printf("Erro. Lista cheia.\n");
         return;
     }
-    // Desloca todos os elementos da lista à direita.
-    for(int i = l->ctr; i <= 0; i--)
-        vetor[i+1] = vetor[i];
-    l->vetor[0] = n; // Insere n no início da lista.
-    l->ctr++; // Incrementa o controle.
+    l->ctr++; // incrementa controle.
+    l->vetor[l->ctr] = n; // insere novo elemento no final.
 
     printf("Elemento inserido com sucesso.\n");
     return;
 }
-// implementa remove_final()
-void remove_final(Lista *l){
-    // Verifica se a lista está vazia.
+
+// Implementa função para limpar a lista.
+void limpar_lista(Lista *l){
+
     if(lista_vazia(l)){
-        printf("Erro. Lista está vazia.\n");
+        printf("Erro. Lista vazia.\n");
         return;
     }
 
-    l->ctr--; // Decrementa em 1, retirando último elemento.
+    l->ctr = -1; // Atribui -1 à lista. O que significa que a lista está vazia.
+    printf("Lista esvaziada com sucesso.\n");
     return;
-}
-// implementa remove_meio()
-void remove_meio(Lista *l, int posicao){
-    // Verifica se a lista está vazia.
-    if(lista_vazia(l)){
-        printf("Erro. Lista está vazia.\n");
-        return;
-    }
-    //Desloca todos os elementos posteriores a posição para a esquerda.
-    for(int i = posicao; i < l->ctr; i++)
-        l->vetor[i] = l->vetor[i+1];
-    l->ctr--; // Decrementa controle em 1.
 
-    printf("Elemento removido.\n");
-    return;
 }
-// Implementa remove_inicio()
+
+// Implementa função para verificar se a lista está cheia.
+int lista_cheia(Lista *l){
+    // Verifica se o controle é igual a 9. Isso indica lista cheia
+    if(l->ctr == 9)
+        return 1;
+
+    return 0;
+
+}
+
+// Implementa função para verificar se a lista está vazia.
+int lista_vazia(Lista *l){
+    // Verifica se o controle é igual a -1. Isso indica lista vazia.
+    if(l->ctr == -1)
+        return 1;
+
+    return 0;
+
+}
+
+// Implementa função para exibir a lista
+void exibir_lista(Lista l){
+    // Percorre a lista exibindo seus elementos.
+    printf("Lista: ");
+    for(int i = 0; i <= l.ctr; i++)
+        printf("%d ", l.vetor[i]);
+
+    printf("\n");
+    return;
+
+}
+
+// Implementa função para remover elemento do inicio;
 void remove_inicio(Lista *l){
     // Verifica se a lista está vazia.
     if(lista_vazia(l)){
-        printf("Erro. Lista está vazia\n");
+        printf("Erro. Lista vazia.\n");
         return;
     }
-    // Desloca todos os elementos para a esquerda.
+    // Desloca todos os elementos para a esquerda, removendo o primeiro.
     for(int i = 0; i < l->ctr; i++)
         l->vetor[i] = l->vetor[i+1];
-    l->ctr--; // Decrementa controle em 1.
+    l->ctr--; // decremento controle.
+
+    printf("Elemento removido com sucesso.\n");
+    return;
     
-    printf("Elemento removido.\n");
-
 }
-// Implementa exibir_lista()
-void exibir_lista(Lista l){
-    printf("Lista: ");
 
-    // Percorre a lista exibindo elementos.
-    for(int i = 0; i <= l.ctr; i++){
-        printf("%d ", l.vetor[i]);
+// Implementa função para remover elemento do meio da lista.
+void remove_meio(Lista *l, int posicao){
+    // Verifica se a lista está vazia.
+    if(lista_vazia(l)){
+        printf("Erro. Lista vazia.\n");
+        return;
     }
-    printf("\n");
-}
-// Implementa limpar_lista()
-void limpar_lista(Lista *l){
-    l->ctr = -1; // atribui -1 ao controle, indicando lista vazia.
-    printf("Lista esvaziada.\n");
-}
-// Implementa lista_cheia()
-int lista_cheia(Lista *l){
-    if(l->ctr == 9)
-        return 1;  // Função retorna 1 se controle for igual a 9, o que indica lista cheia.
+    // Desloca todos os elementos para a esquerda a partir da posicao, removendo o elemento que estava na posição.
+    for(int i = posicao; i < l->ctr; i++)
+        l->vetor[i] = l->vetor[i+1];
+    l->ctr--; // decrementa controle.
 
-    return 0;
+    printf("Elemento removido com sucesso.\n");
+    return;
+
 }
-// Implementa lista_vazia()
-int lista_vazia(Lista *l){
-    if(l->ctr == -1)
-        return 1; // Função retorna 1 se controle for igual a -1, o que indica lista vazia.
-    
-    return 0;
+
+// Implementa função para remover elemento do final da lista.
+void remove_final(Lista *l){
+    // Verifica se a lista está vazia.
+    if(lista_vazia(l)){
+        printf("Erro. Lista vazia.\n");
+        return;
+    }
+    l->ctr--; // Decrementa vetor.
+
+    printf("Elemento inserido com sucesso.\n");
+    return;
+
 }
