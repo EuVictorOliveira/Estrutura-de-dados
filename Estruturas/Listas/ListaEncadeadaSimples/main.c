@@ -16,32 +16,29 @@
 // MAIN
 int main(void){
     No *l; // Declara ponteiro para nó.
+    No *l2;
 
     cria_lista(&l); // Passa o endereço do ponteiro.
     // Chamando função de inserção no início.
   
-    inserir_fim(&l, 42);
-    inserir_fim(&l, 60);
-    inserir_fim(&l, 40);
-    exibir_lista(l);
-    inserir_meio(&l, 92, 66);
-    exibir_lista(l);
-    remover_inicio(&l);
-    remover_inicio(&l);
-    remover_inicio(&l);
+
+    inserir_fim(&l, 1);
+    inserir_fim(&l, 2);
+    inserir_fim(&l, 3);
+    inserir_fim(&l, 4);
+    inserir_fim(&l, 5);
+    inserir_fim(&l, 6);
+    inserir_fim(&l, 7);
+    inserir_fim(&l, 8);
 
     exibir_lista(l);
-    remover_inicio(&l);
-    remover_inicio(&l);
-    inserir_fim(&l, 42);
-    inserir_fim(&l, 60);
-    inserir_fim(&l, 40);
+    remover_meio(&l, 5);
     exibir_lista(l);
-    inserir_meio(&l, 92, 66);
+    remover_meio(&l, 10);
     exibir_lista(l);
-    remover_fim(&l);
+    remover_meio(&l, 8);
     exibir_lista(l);
-    remover_fim(&l);
+    remover_meio(&l, 2);
     exibir_lista(l);
 
 

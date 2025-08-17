@@ -21,6 +21,7 @@ int main(void){
     push(&p, 3);
     printf("topo: %d\n", top(&p));
     esvaziar_pilha(&p);
+    
 
     return 0;
 }

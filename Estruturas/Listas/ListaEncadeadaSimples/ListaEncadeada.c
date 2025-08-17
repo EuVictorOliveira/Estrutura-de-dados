@@ -124,15 +124,19 @@ void remover_meio(No **lp, int valor){
     }
     p = *lp; // atribui o conteúdo de lp a p.
     if(p->proximo == NULL){ // Caso de lista unitária.
-        *lp = NULL; // lista agora é vazia.
-        free(p);
-        printf("Elemento removido.\n");
+        if(p->info == valor){
+            *lp = NULL; // lista agora é vazia.
+            free(p);
+            printf("Elemento removido.\n");
+            return;
+        }
+        printf("Elemento nao encontrado.\n");
         return;
     }
     No *sai; // cria variável auxiliar que será retirada.
     for(sai = p->proximo; sai->info != valor && sai->proximo != NULL; p = sai, sai = sai->proximo); // percorre lista até achar valor ou chegar no vetor nulo.
     // Caso elemento não tenha sido encontrado.
-    if(sai->proximo == NULL){
+    if(sai->proximo == NULL && sai->info != valor){
         printf("Elemento nao encontrado.\n");
         return;
     }
@@ -210,7 +214,5 @@ void concatenar_listas(No **inicio, No **final){
     for(p = *inicio; p->proximo != NULL; p = p->proximo);
     p->proximo = *final;
     
-
-
 }
 

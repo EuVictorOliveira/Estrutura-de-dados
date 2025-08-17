@@ -31,11 +31,13 @@ void inserir_meio(No **lp, int n, int valorAnterior);
 void inserir_fim(No **lp, int n);
 // Protótipo de função para remoção de elemento no início da lista. Seus parâmetros são ponteiro de ponteiro para nó.
 void remover_inicio(No **lp);
-// Protótipo de funçao para remoção de elemento no meio da lista. Seus parâmetros são ponteiro de ponteiro para nó e int valorAnterior.
-void remover_meio(No **lp, int ValorAnterior);
+// Protótipo de funçao para remoção de elemento no meio da lista. Seus parâmetros são ponteiro de ponteiro para nó e int valor.
+void remover_meio(No **lp, int Valor);
 // Protótipo de função para remoção de elemento no fim da lista. Seus parâmetros são ponteiro de ponteiro para nó.
 void remover_fim(No **lp);
 // Protótipo de função para exibir a lista. Seu parâmetro é ponteiro para struct nó.
 void exibir_lista(No *l);
 // Protóripo para esvaziar lista. Seu parâmetro é ponteiro de ponteiro para struct nó.
 void esvaziar_lista(No **lp);
+// Protótipo para concatenar listas;
+void concatenar_listas(No **inicio, No **final);

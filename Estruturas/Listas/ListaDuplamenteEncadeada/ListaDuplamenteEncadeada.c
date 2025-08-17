@@ -84,7 +84,7 @@ void inserir_meio(No **lp, int n, int valorAnterior){
         novo->proximo = NULL;
         auxiliar->proximo = novo;
 
-        printf("Valor nao encontrado. Erro ao inserir.\n");
+        printf("Valor nao encontrado. Inserindo no fim.\n");
         return;
     }
     // Não sendo o auxiliar o ultimo elemento, podemos ajustar o encadeamento normalmente:
@@ -164,7 +164,7 @@ void remover_meio(No **lp, int n){
     }
     No *sai; // representa nó a ser removido.
     // Caso 2: lista unitária.
-    if((*lp)->proximo == NULL){
+    if((*lp)->proximo == NULL && (*lp)->info == n){
         sai = *lp; // sai agora aponta para o inicio da lista.
         free(sai); // liberamos memoria de sai.
 

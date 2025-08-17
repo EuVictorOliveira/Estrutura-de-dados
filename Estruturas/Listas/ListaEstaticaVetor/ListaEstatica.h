@@ -8,10 +8,10 @@
  */
 
 // Definição da estrutura
-typedef struct listaEstatica{
-    int vetor[10]; // aloca vetor de inteiros com 10 elementos;
-    int ctr;  // aloca variável de controle. Tipo: inteiro.
-}Lista;
+typedef struct listaEstatisca{
+    int vetor[10];
+    int ctr;
+} Lista;
 
 // PROTÓTIPOS DAS FUNÇÕES
 
