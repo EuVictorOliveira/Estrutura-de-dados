@@ -12,15 +12,16 @@
 #include "PilhaDinamica.h"
 
 int main(void){
-    No *p;
+    Pilha *p;
 
     cria_pilha(&p);
 
-    push(&p, 1);
-    push(&p, 2);
-    push(&p, 3);
-    printf("topo: %d\n", top(&p));
-    esvaziar_pilha(&p);
+    push(p, 1);
+    push(p, 2);
+    push(p, 3);
+    printf("topo: %d\n", top(p));
+    exibir_pilha(p);
+
     
 
     return 0;

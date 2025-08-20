@@ -15,88 +15,121 @@
 #include "PilhaDinamica.h"
 
 // Implementa cria_pilha()
-void cria_pilha(No **topo){
-    // Seta o ínicio da pilha como sendo NULL, o que indica pilha criada e vazia.
-    *topo = NULL;
-
-    printf("Pilha criada com sucesso.\n");
-    return;
-
-}
-// Implementa push().
-void push(No **topo, int n){
-    No *novo; // variável que representa o novo nó
-
-    novo = (No*) malloc(sizeof(No));// aloca novo nó dinamicamente
-    // Verifica alocação:
-    if(!novo){
-        printf("Erro ao alocar memoria.\n");
+void cria_pilha(Pilha **p){
+    // Aloca memória para struct pilha
+    *p = (Pilha*) malloc(sizeof(Pilha));
+    if(!(*p)){
+        printf("Erro alocar memoria.\n");
         exit(1);
     }
-    // Construção do novo nó e inserção na pilha:
-    novo->info = n;
-    novo->proximo = *topo;
-    *topo = novo;
-
-    printf("Elemento inserido no topo com sucesso.\n");
+    // Constrói pilha como vazia.
+    (*p)->topo = NULL;
+    printf("Pilha criada com sucesso.\n");
     return;
+    
+}
+// Implementa push().
+void push(Pilha *p, int n){
+    No *novo; // nó para novo elemento da pilha
+    novo = (No*) malloc(sizeof(Pilha));
+    if(!novo){
+        printf("Erro ao alocar memoria.\n");
+        return;
+    }
+    // faz as devidas atribuições
+    novo->info = n;
+    novo->proximo = p->topo;
+    p->topo = novo;
 
+    printf("Elemento inserido com sucesso.\n");
+    return;
 }
 // Implementa pop()
-int pop(No **topo){
-    // Verifica se a pilha está vazia
-    if(pilha_vazia(topo)){
-        printf("Erro. Pilha vazia.\n");
-        return -1;
+int pop(Pilha *p){
+    // Verifica se a pilha está vazia.
+    if(pilha_vazia(p)){
+        printf("Pilha vazia.\n");
+        return 0;
     }
-    No *sai; // representa variável que será retirada.
-    sai = *topo; // sai agora aponta para onde o topo aponta.
-    *topo = sai->proximo; // topo passa a apontar para o próximo elemento da pilha.
-    
-    int auxiliar; // representa variável auxiliar que será retornada ao fim da função.
-    auxiliar = sai->info; // auxiliar agora guarda o nó que será desempilhada.
+    // Veficia se a pilha é unitária
+    No *sai;
+    int auxiliar;
+    if(p->topo->proximo == NULL){
+        sai = p->topo;
+        auxiliar = sai->info;
+        p->topo = NULL; // pilha agora é vazia
 
-    free(sai); // libera memória de sai.
-    printf("Elemento desempilhado com sucesso.\n");
+        free(sai);
+        return auxiliar;
+    }
+    // Caso de pilha com multiplos elementos.
+    sai = p->topo;
+    auxiliar = sai->info;
+    p->topo = sai->proximo;
 
     return auxiliar;
 
 }
-// Implementa top().
-int top(No **topo){
-    // Verifica se a pilha está vazia.
-    if(pilha_vazia(topo)){
-        printf("Erro, Pilha vazia.\n");
-        return -1;
+// Implementa top()
+int top(Pilha *p){
+    // Verifica se a pilha está vazia
+    if(pilha_vazia(p)){
+        printf("Pilha vazia.\n");
+        return 0;
     }
-    
-    return (*topo)->info;
-}
-// Implementa pilha_vazia().
-int pilha_vazia(No **topo){
-    // Faz verificação:
-    if(*topo == NULL)
-        return 1;
 
-    return 0;
+    return p->topo->info;
 
 }
-// Implementa esvaziar_pilha().
-void esvaziar_pilha(No **topo){
-    // Verifica se a pilha está vazia.
-    if(pilha_vazia(topo)){
-        printf("Erro. Pilha vazia.\n");
+// Implementa pilha_vazia()
+int pilha_vazia(Pilha *p){
+
+    return (p->topo == NULL);
+
+}
+// Implementa libera_pila()
+void libera_pilha(Pilha *p){
+    // verifica se pilha é vazia
+    if(pilha_vazia(p)){
+        free(p);
+
+        printf("Pilha esvaziada com sucesso.\n");
         return;
     }
-    No *auxiliar; // representa nó auxiliar que será removida a cada iteração.
-    while(*topo){
-        auxiliar = *topo;
-        *topo = auxiliar->proximo;
+    No *auxiliar = p->topo;
+    while(auxiliar != NULL){
+        No *auxiliar2;
+        auxiliar2 = auxiliar->proximo;
 
         free(auxiliar);
+        auxiliar = auxiliar2;
     }
-    // Seta NULL no topo, indicando pilha vazia.
-    *topo = NULL;
+
     printf("Pilha esvaziada com sucesso.\n");
     return;
+
+}
+// Implementa exibir_pilha()
+void exibir_pilha(Pilha *p){
+    // Verifica se a pilha está vazia.
+    if(pilha_vazia(p)){
+        printf("Pilha vazia.\n");
+        return;
+    }
+    // Implementa recursão
+    printf("Pilha: ");
+    exibir_no(p->topo); // chama função recursiva.
+    printf("\n");
+
+}
+// Implementa exibir Nos
+void exibir_no(No *elemento){
+
+    if(elemento){
+        printf("%d ", elemento->info); 
+        exibir_no(elemento->proximo); // etapa recursiva
+    }else
+        return; // condição de parada
+    
+
 }

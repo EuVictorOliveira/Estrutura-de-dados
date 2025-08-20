@@ -22,17 +22,25 @@ typedef struct no{
     int info;
     struct no* proximo;
 } No;
+// Definição do tipo pilha
+typedef struct pilha{
+    No *topo;
+} Pilha;
 
 // DEFINIÇÃO DAS FUNÇÕES:
 // Protótipo da função para criação da pilha. Seu parâmetro é um ponteiro de ponteiro para nó e seu retorno é genérico(void).
-void cria_pilha(No**);
+void cria_pilha(Pilha**);
 // Protótipo da função push() da pilha, que insere elementos em seu topo. Seu parâmetro é um ponteiro de ponteiro para nó e inteiro n, seu retorno é void(generico).
-void push(No**, int);
+void push(Pilha*, int);
 // Protótipo da função pop() da pilha, que remove o elemento que é o topo da pilha. Seu parâmetro é um ponteiro de ponteiro de ponteiro para nó e seu retorno é do tipo ponteiro para No*.
-int pop(No**);
+int pop(Pilha*);
 // Protótipo da função top() da pilha, que retorna o topo da pilha. Seu parâmetro é um ponteiro de ponteiro para nó e seu retorno é um ponteiro para Nó.
-int top(No**);
+int top(Pilha*);
 // Protótipo da função que verifica se a pilha está vazia. Seu parâmetro é ponteiro de ponteiro para nó e seu retorno é void(genérico).
-int pilha_vazia(No**);
+int pilha_vazia(Pilha*);
 // Protótipo da função que esvazia a pilha. Seu parâmetro é ponteiro de ponteiro para nó e seu retorno é void(genérico).
-void esvaziar_pilha(No**);
+void libera_pilha(Pilha*);
+// Protótipo da função para exibir a pilha utilizando recursão
+void exibir_pilha(Pilha*);
+// protótipo da função para exibir os nós
+void exibir_no(No*);
