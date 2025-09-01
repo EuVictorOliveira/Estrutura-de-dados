@@ -2,7 +2,7 @@
     Arquivo relacionado à implementação das funções de manipulação referentes à arvore binária
     Autor: João Victor Oliveira
 
-    data: 29/08/2025
+    data da última moodificação: 01/09/2025
 
 */
 // CABEÇALHO
@@ -70,16 +70,43 @@ int arvore_vazia(Arvore *raiz){
     return raiz == NULL;
 }
 // Implementa exibir_arvore()
-void exibir_arvore(Arvore* raiz){
+void exibir_arvore_prefix(Arvore* raiz){
     // Verifica se a árvore está vazia.
+    if(arvore_vazia(raiz))
+        return;
+    
+
+    // Imprime a árvore de maneira pré-fixa(RAIZ, SAE, SAD):
+    printf("%d ", raiz->info); // imprime valor do nó atual.
+    exibir_arvore_prefix(raiz->esquerda); // chama função de maneira recursiva.
+    exibir_arvore_prefix(raiz->direita); // chama função de maneira recursiva.
+
+    return;
+}
+// Implementa exibir_arvore_infix()
+void exibir_arvore_infix(Arvore *raiz){
+    // Verifica se árvore está vazia.
     if(arvore_vazia(raiz)){
         return;
     }
 
-    // Imprime a árvore:
-    printf("%d ", raiz->info); // imprime valor do nó atual.
-    exibir_arvore(raiz->esquerda); // chama função de maneira recursiva.
-    exibir_arvore(raiz->direita); // chama função de maneira recursiva.
+    // Imprime a árvore de maneira infixada(SAE, RAIZ, SAD)(ou ordenada quanto aos valores):
+    exibir_arvore_infix(raiz->esquerda); 
+    printf("%d ", raiz->info);
+    exibir_arvore_infix(raiz->direita);
+
+    return;
+}
+// Implementa exibir_arvore_posfix()
+void exibir_arvore_posfix(Arvore *raiz){
+    // Verficia se árvore está vazia.
+    if(arvore_vazia(raiz))
+        return;
+
+    // Imprime a árvore de maneira pós-fixada(SAE,SAD,RAIZ)
+    exibir_arvore_posfix(raiz->esquerda);
+    exibir_arvore_posfix(raiz->direita);
+    printf("%d ", raiz->info);
 
     return;
 }
@@ -103,4 +130,38 @@ int buscar_elemento(Arvore* raiz, int valor){
 
     return raiz->info == valor || buscar_elemento(raiz->esquerda, valor) || buscar_elemento(raiz->direita, valor); // utiliza recursão para buscar elemento.
 
+}
+// Implementa altura_arvore()
+int altura_arvore(Arvore *raiz){
+    // Verifica se árvore está vazia:
+    if(arvore_vazia(raiz))
+        return -1; // convenção bibliográfica
+
+    int alturaEsquerda = 0; // seta altura esquerda dá árvore como zero(árvore somento com raiz)
+    int alturaDireita = 0; // seta altura direita da arvore como zero(arvore somente com raiz);
+
+    // Faz chamadas recursivas
+    alturaEsquerda += 1 + altura_arvore(raiz->esquerda);
+    alturaDireita += 1 + altura_arvore(raiz->direita);
+
+    // compara as alturas e retorna a maior.
+    if(alturaEsquerda > alturaDireita)
+        return alturaEsquerda;
+
+    return alturaDireita;
+
+}
+// Implementa nos_arvore
+int nos_arvore(Arvore *raiz){
+    // Vefifica se a árvore está vazia
+    if(arvore_vazia(raiz))
+        return 0; // indica que não há nenhum nó
+
+    int nNos = 1;
+    // Soma a quantidade nós de toda árvore recursivamente
+    nNos += nos_arvore(raiz->esquerda);
+    nNos += nos_arvore(raiz->direita);
+    
+    // Retorna a quantidade total de nós da árvore
+    return nNos;
 }

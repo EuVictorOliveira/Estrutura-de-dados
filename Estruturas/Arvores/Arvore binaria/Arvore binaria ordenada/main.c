@@ -9,6 +9,21 @@
 #include <stdlib.h>
 #include "ArvoreBinaria.h"
 
+/*
+
+            50    // estrutura da árvore
+          /   \
+        30    70
+       /  \  /  \
+      20  40 60  80
+                  \
+                  90
+                   \
+                   100
+                    \ 
+                    110
+*/
+
 int main(){
     Arvore *raiz; // ponteiro para a raiz da árvore
 
@@ -23,29 +38,21 @@ int main(){
     inserir_arvore(&raiz, 40);
     inserir_arvore(&raiz, 60);
     inserir_arvore(&raiz, 80);
+    inserir_arvore(&raiz, 90);
+    inserir_arvore(&raiz, 100);
+    inserir_arvore(&raiz, 110);
 
     printf("\nArvore em pre-ordem: ");
-    exibir_arvore(raiz);
-    printf("\n");
+    exibir_arvore_prefix(raiz);
 
-    // Buscar elementos
-    int valor = 40;
-    if(buscar_elemento(raiz, valor))
-        printf("Elemento %d encontrado na arvore.\n", valor);
-    else
-        printf("Elemento %d NAO encontrado na arvore.\n", valor);
-
-    valor = 90;
-    if(buscar_elemento(raiz, valor))
-        printf("Elemento %d encontrado na arvore.\n", valor);
-    else
-        printf("Elemento %d NAO encontrado na arvore.\n", valor);
-
-    // Liberar memória
-    liberar_arvore(&raiz);
-
-    if(arvore_vazia(raiz))
-        printf("\narvore liberada com sucesso.\n");
+    printf("\nArvore em infix-ordem: ");
+    exibir_arvore_infix(raiz);
+   
+    printf("\nArvore em pos-ordem: ");
+    exibir_arvore_posfix(raiz);
+    
+    printf("\nAltura da arvore: %d\n", altura_arvore(raiz));
+    printf("Numero de nos da arvore: %d\n", nos_arvore(raiz));
 
     return 0;
 }
