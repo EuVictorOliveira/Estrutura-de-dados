@@ -78,3 +78,18 @@ int busca_elemento(Arvore* raiz, int valor){
 
 }
 // Implementa copia().
+Arvore* copia(Arvore* original){
+    // Verifica se a árvore original está vazia
+    if(arvore_vazia(original))
+        return NULL; // retorna um ponteiro nulo em caso afirmativo
+
+    // Caso a arvore não esteja vazia
+    Arvore *copia = original;
+    Arvore *auxiliar = copia;
+    // Faz chamadas recursivas:
+    cria_arvore(auxiliar->esquerda->info, auxiliar->esquerda->esquerda, auxiliar->esquerda->direita);
+    cria_arvore(auxiliar->direita->info, auxiliar->direita->esquerda, auxiliar->direita->direita);
+
+    return copia;
+
+}
