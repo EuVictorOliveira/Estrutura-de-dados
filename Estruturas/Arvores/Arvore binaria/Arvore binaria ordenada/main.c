@@ -31,16 +31,16 @@ int main(){
     criar_arvore(&raiz);
 
     // Inserir elementos
-    inserir_arvore(&raiz, 50);
-    inserir_arvore(&raiz, 30);
-    inserir_arvore(&raiz, 70);
-    inserir_arvore(&raiz, 20);
-    inserir_arvore(&raiz, 40);
-    inserir_arvore(&raiz, 60);
-    inserir_arvore(&raiz, 80);
-    inserir_arvore(&raiz, 90);
-    inserir_arvore(&raiz, 100);
-    inserir_arvore(&raiz, 110);
+    raiz = inserir_arvore(raiz, 50);
+    raiz = inserir_arvore(raiz, 30);
+    raiz = inserir_arvore(raiz, 70);
+    raiz = inserir_arvore(raiz, 20);
+    raiz = inserir_arvore(raiz, 40);
+    raiz = inserir_arvore(raiz, 60);
+    raiz = inserir_arvore(raiz, 80);
+    raiz = inserir_arvore(raiz, 90);
+    raiz = inserir_arvore(raiz, 100);
+    raiz = inserir_arvore(raiz, 110);
 
     printf("\nArvore em pre-ordem: ");
     exibir_arvore_prefix(raiz);

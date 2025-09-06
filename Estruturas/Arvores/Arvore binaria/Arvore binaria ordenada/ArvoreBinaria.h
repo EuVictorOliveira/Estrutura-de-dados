@@ -20,7 +20,7 @@ typedef struct arvore{
 // Função para criar arvore vazia. Tem como parâmetro void e retorno vazio
 void criar_arvore(Arvore**);
 // Função para inserir novo nó na árvore. Tem como parâmetros a informação a ponteiro para ponteiro de arvore e valor do novo nó. Seu retorno é vazio
-void inserir_arvore(Arvore**, int);
+Arvore* inserir_arvore(Arvore*, int);
 // Função para verifica se a arvore está vazia. Tem como parâmetro o ponteiro para árvore. Seu retorno é do tipo inteiro.
 int arvore_vazia(Arvore*);
 // Função para percorrer os nós da arvore, exibindo seus conteúdos de maneira pré-fixada. Tem como parametro ponteiro para arvore. Seu retorno é do tipo void

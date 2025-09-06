@@ -17,53 +17,38 @@ void criar_arvore(Arvore **raiz){
     printf("Arvore criada com sucesso.\n");
     return;
 }
-// Implementa inserir_arvore()
-void inserir_arvore(Arvore **raiz, int n){
+// Implementa inserir_arvore(). Foi modificado para implementar de maneira recursiva
+Arvore* inserir_arvore(Arvore *raiz, int n){
     // Primeiro, verifica se o valor já existe na arvore. Essa implementação de árvore binária não permite repetições
-    if(buscar_elemento(*raiz, n)){
+    if(buscar_elemento(raiz, n)){
         printf("Elemento ja existe na arvore\n");
-        return;
+        return raiz;
     }
-    // Aloca novo nó e faz verificação de memória
-    Arvore *novo;
-    novo = (Arvore*) malloc(sizeof(Arvore));
-    if(!novo){
-        printf("Erro ao alocar memoria.\n");
-        exit(1);
-    }
-    // Constrói o novo nó:
-    novo->info = n;
-    novo->esquerda = NULL; // tanto esquerda como direito serão NULL, já que sempre adicionamos um novo elemento como sendo uma folha da árvore(nó sem filhos)
-    novo->direita = NULL;
-
-    // Caso a arvore esteja vazia:
-    if(arvore_vazia(*raiz)){
-        *raiz = novo;
+    // Caso a arvore esteja vazia(caso base):
+    if(arvore_vazia(raiz)){
+        // Aloca novo nó e faz verificação de memória
+        Arvore *novo;
+        novo = (Arvore*) malloc(sizeof(Arvore));
+        if(!novo){
+            printf("Erro ao alocar memoria.\n");
+            exit(1);
+        }
+        // Constrói o novo nó folha:
+        novo->info = n;
+        novo->esquerda = NULL; // tanto esquerda como direito serão NULL, já que sempre adicionamos um novo elemento como sendo uma folha da árvore(nó sem filhos)
+        novo->direita = NULL;
 
         printf("Elemento inserido com sucesso.\n");
-        return;
+        return novo;
     }
-
-    // Cria variávies auxiliaires
-    Arvore *auxiliar = *raiz;
-    Arvore *pai = NULL;
-
-    // Percorre à árvore até que o auxiliar seja igual a NULL, indicando local adequado para inserção
-    while(auxiliar != NULL){
-        pai = auxiliar;
-        if(n < auxiliar->info)
-            auxiliar = auxiliar->esquerda;
-        else
-            auxiliar = auxiliar->direita;
-    }
-    // Verifica se n deve ser adicionado à esquerda ou à direita
-    if(n < pai->info)
-        pai->esquerda = novo;
+    // caso recursivo:
+    if(n < raiz->info)
+        raiz->esquerda = inserir_arvore(raiz->esquerda, n); // vai para esquerda caso n seja menor que a raiz(subarvore) atual
     else
-        pai->direita = novo;
+        raiz->direita  = inserir_arvore(raiz->direita, n); // vai para direita caso n seja maior que a raiz(subarvore) atual
 
-    printf("Elemento inserido com sucesso.\n");
-
+    return raiz;
+    
 }
 // Implementa arvore_vazia()
 int arvore_vazia(Arvore *raiz){
@@ -137,18 +122,12 @@ int altura_arvore(Arvore *raiz){
     if(arvore_vazia(raiz))
         return -1; // convenção bibliográfica
 
-    int alturaEsquerda = 0; // seta altura esquerda dá árvore como zero(árvore somento com raiz)
-    int alturaDireita = 0; // seta altura direita da arvore como zero(arvore somente com raiz);
-
     // Faz chamadas recursivas
-    alturaEsquerda += 1 + altura_arvore(raiz->esquerda);
-    alturaDireita += 1 + altura_arvore(raiz->direita);
+    int alturaEsquerda = altura_arvore(raiz->esquerda);
+    int alturaDireita = altura_arvore(raiz->direita);
 
     // compara as alturas e retorna a maior.
-    if(alturaEsquerda > alturaDireita)
-        return alturaEsquerda;
-
-    return alturaDireita;
+    return (alturaEsquerda > alturaDireita ? alturaEsquerda : alturaDireita) + 1;
 
 }
 // Implementa nos_arvore
@@ -156,12 +135,7 @@ int nos_arvore(Arvore *raiz){
     // Vefifica se a árvore está vazia
     if(arvore_vazia(raiz))
         return 0; // indica que não há nenhum nó
-
-    int nNos = 1;
-    // Soma a quantidade nós de toda árvore recursivamente
-    nNos += nos_arvore(raiz->esquerda);
-    nNos += nos_arvore(raiz->direita);
     
     // Retorna a quantidade total de nós da árvore
-    return nNos;
+    return 1 + nos_arvore(raiz->esquerda) + nos_arvore(raiz->direita);
 }
