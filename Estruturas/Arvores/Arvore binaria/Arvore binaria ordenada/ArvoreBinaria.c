@@ -18,7 +18,7 @@ void criar_arvore(Arvore **raiz){
     return;
 }
 // Implementa inserir_arvore(). Foi modificado para implementar de maneira recursiva
-Arvore* inserir_arvore(Arvore *raiz, int n){
+Arvore* inserir_arvore_recursisva(Arvore *raiz, int n){
     // Primeiro, verifica se o valor já existe na arvore. Essa implementação de árvore binária não permite repetições
     if(buscar_elemento(raiz, n)){
         printf("Elemento ja existe na arvore\n");
@@ -43,12 +43,55 @@ Arvore* inserir_arvore(Arvore *raiz, int n){
     }
     // caso recursivo:
     if(n < raiz->info)
-        raiz->esquerda = inserir_arvore(raiz->esquerda, n); // vai para esquerda caso n seja menor que a raiz(subarvore) atual
+        raiz->esquerda = inserir_arvore_recursisva(raiz->esquerda, n); // vai para esquerda caso n seja menor que a raiz(subarvore) atual
     else
-        raiz->direita  = inserir_arvore(raiz->direita, n); // vai para direita caso n seja maior que a raiz(subarvore) atual
+        raiz->direita  = inserir_arvore_recursisva(raiz->direita, n); // vai para direita caso n seja maior que a raiz(subarvore) atual
 
     return raiz;
     
+}
+// Implementa inserir_arvore(). Insere na árvore sem recursão
+void inserir_arvore(Arvore **raiz, int n){
+    // verifica se o elemento já existe
+    if(buscar_elemento(*raiz, n)){
+        printf("Elemento existe na arvore.\n");
+        return;
+    }
+    Arvore *novo = (Arvore*) malloc(sizeof(Arvore));
+    if(!novo){
+        printf("Erro ao alocar memoria.\n");
+        exit(1);
+    }
+    // Constrói novo nó-folha
+    novo->esquerda = NULL;
+    novo->info = n;
+    novo->direita = NULL;
+
+    if(arvore_vazia(*raiz)){
+        *raiz = novo;
+
+        printf("Elemento inserido com sucesso.\n");
+        return;
+    }
+
+    Arvore *auxiliar = *raiz;
+    Arvore *pai = NULL;
+    // Perocrre arvore até chegar no local correto de inserção
+    while(auxiliar != NULL){
+        pai = auxiliar;
+
+        if(n < auxiliar->info)
+            auxiliar = auxiliar->esquerda;
+        else
+            auxiliar = auxiliar->direita;
+    }
+
+    if(n < pai->info)
+        pai->esquerda = novo;
+    else
+        pai->direita = novo;
+
+    printf("Elemento inserido com sucesso.\n");
 }
 // Implementa arvore_vazia()
 int arvore_vazia(Arvore *raiz){
