@@ -41,6 +41,9 @@ int main(){
     raiz = inserir_arvore_recursisva(raiz, 90);
     raiz = inserir_arvore_recursisva(raiz, 100);
     raiz = inserir_arvore_recursisva(raiz, 110);
+    raiz = remove_folha(raiz, 110);
+    raiz = remove_folha(raiz, 20);
+    raiz = remove_folha(raiz, 30);
 
     printf("\nArvore em pre-ordem: ");
     exibir_arvore_prefix(raiz);

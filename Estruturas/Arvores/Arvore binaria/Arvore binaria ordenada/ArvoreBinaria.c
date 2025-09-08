@@ -182,3 +182,27 @@ int nos_arvore(Arvore *raiz){
     // Retorna a quantidade total de nós da árvore
     return 1 + nos_arvore(raiz->esquerda) + nos_arvore(raiz->direita);
 }
+// Implementa remover_folha()
+Arvore* remove_folha(Arvore *raiz, int valor){
+    // Verifica se árvore está vazia:
+    if(arvore_vazia(raiz)){
+        return NULL;
+    }
+    // Percorre a árvore recursivamente
+    if(valor < raiz->info)
+        raiz->esquerda = remove_folha(raiz->esquerda, valor);
+    else if(valor > raiz->info)
+        raiz->direita = remove_folha(raiz->direita, valor);
+    else{
+        if(raiz->esquerda == NULL && raiz->direita == NULL){
+            free(raiz);
+
+            printf("Folha removida com sucesso.\n");
+            return NULL;
+        }else
+            printf("No encontrado, mas nao eh folha\n");
+    }
+
+    return raiz;
+
+}

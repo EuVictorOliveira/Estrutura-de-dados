@@ -58,3 +58,5 @@ Arvore* rotacao_esquerda(Arvore*);
 Arvore* rotacao_direita(Arvore*);
 // Protótipo da função para realizar o balanceamento da árvore, garantindo a característica da AVL. Parâmetro: Ponteiro de árvore, int. Retorno: pontiero de árvore
 Arvore* balancear_arvore(Arvore*, int);
+// protótipo da função para realizar a remoção de um nó-folha. Parâmetro: ponteiro e árvore e int. Retorno: ponteiro de arvore
+Arvore* remove_folha(Arvore*, int);

@@ -39,3 +39,5 @@ int buscar_elemento(Arvore*, int);
 int altura_arvore(Arvore*);
 // Função para verificar a quantidade de nós de uma árvore binária e retornar valor correspondente. Tem como parâmetro ponteiro de árvore e retorna inteiro
 int nos_arvore(Arvore*);
+// Funão para remover folha
+Arvore* remove_folha(Arvore*, int);

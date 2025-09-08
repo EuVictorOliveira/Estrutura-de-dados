@@ -66,6 +66,57 @@ Arvore* inserir_arvore(Arvore *raiz, int valor){
     return raiz; // retorna raiz inalterada.
 
 }
+// Implementa insercao_nao_recursiva
+void insercao_nao_recursiva(Arvore **raiz, int valor){
+    // Verifica se o elemento já existe na árvore
+    if(busca_elemento(*raiz, valor)){
+        printf("Elemento existe na arvore.\n");
+        return;
+    }
+    // construcao do novo nó-folha
+    Arvore* novo = (Arvore*) malloc(sizeof(Arvore));
+    if(!novo){
+        printf("Erro ao alocar memoria.\n");
+        exit(1);
+    }
+    novo->esquerda = NULL;
+    novo->info = valor;
+    novo->direita = NULL;
+    // Caso a arvore esteja vazia:
+    if(arvore_vazia(*raiz)){
+        *raiz = novo;
+        printf("Elemento inserido com sucesso.\n");
+        return;
+    } 
+    // Variavéis para percorrer árvore:
+    Arvore *auxiliar = *raiz;
+    Arvore *pai = NULL;
+    // percorre árvore
+    while(auxiliar != NULL){
+        pai = auxiliar;
+
+        if(valor < auxiliar->info)
+            auxiliar = auxiliar->esquerda;
+        else
+            auxiliar = auxiliar->direita;
+    }
+    // Faz inserção após chegar na fola
+    if(valor < pai->info)
+        pai->esquerda = novo;
+    else
+        pai->direita = novo;
+
+    // Etapa de balanceamento
+    int balanceamento = altura_arvore((*raiz)->esquerda) - altura_arvore((*raiz)->direita);
+
+    if(abs(balanceamento) > 1)
+        *raiz = balancear_arvore(*raiz, balanceamento);
+
+
+    printf("Elemento inserido com sucesso.\n");
+    return;
+}
+
 // Implementa arvore_vazia()
 int arvore_vazia(Arvore *raiz){
     return raiz == NULL; // se a raiz for nula, a árvore está vazia.
@@ -218,5 +269,37 @@ Arvore* balancear_arvore(Arvore *raiz, int fatorBalanceamento) {
     }
 
     // Já balanceada
+    return raiz;
+}
+// Implementa remove_folha()
+Arvore* remove_folha(Arvore* raiz, int valor) {
+    if (arvore_vazia(raiz)) {
+        return NULL;
+    }
+
+    // Busca nó recursivamente
+    if (valor < raiz->info) 
+        raiz->esquerda = remove_folha(raiz->esquerda, valor);
+    else if (valor > raiz->info) 
+        raiz->direita = remove_folha(raiz->direita, valor);
+    else {
+        // achou o nó
+        if (raiz->esquerda == NULL && raiz->direita == NULL) {
+            free(raiz);
+            printf("Folha removida com sucesso.\n");
+
+            return NULL;
+        } else {
+            printf("No encontrado, mas nao eh folha, nenhuma remocao.\n");
+        }
+    }
+
+    // Testa se árvore está balanceada:
+    int fb = fator_balanceamento(raiz);
+
+    // realiza balanceamento caso necessário:
+    if (abs(fb) > 1)
+        return balancear_arvore(raiz, fb);
+
     return raiz;
 }
