@@ -2,7 +2,7 @@
      Implemente uma função que compare se duas árvores binárias são iguais.
      Essa função deve obedecer ao protótipo:
 
-                        Arv* igual (Arv* a, Arv* b);
+                        Int igual (Arv* a, Arv* b);
 
     autor: João Victor Oliveira
     data: 31-08-2025
@@ -79,17 +79,16 @@ int busca_elemento(Arvore* raiz, int valor){
 }
 // Implementa iguais().
 int igual(Arvore* a, Arvore* b){
-    // Verifica se ambas árvores estão vazias
-    if(arvore_vazia(a) && arvore_vazia(b))
+   // Vefifica se ambas são vazias
+   if(arvore_vazia(a) && arvore_vazia(b))
         return 1;
-
-    // Verifica se uma está vazia e a outra não
-    if(arvore_vazia(a) || arvore_vazia(b))
+ 
+   // Verifica se apenas uma vazia
+   if(arvore_vazia(a) || arvore_vazia(b))
         return 0;
 
-    // retorna conjunção da verifica atual junto com as chamadas recursivas.
-    return (a->info == b->info) &&
-           igual(a->esquerda, b->esquerda) &&
-           igual(a->direita, b->direita);
-    
+   return (a->info == b->info) 
+          && igual(a->esquerda, b->esquerda)
+          && igual(a->direita, b->direita);
+
 }

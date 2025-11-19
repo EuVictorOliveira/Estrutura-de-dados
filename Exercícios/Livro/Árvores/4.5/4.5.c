@@ -1,11 +1,9 @@
 /*
-     Implemente uma função que compare se duas árvores binárias são iguais.
-     Essa função deve obedecer ao protótipo:
+    Implemente uma função que crie uma cópia de uma árvore binária. Essa
+    função deve obedecer ao protótipo:
 
-                        Arv* igual (Arv* a, Arv* b);
 
-    autor: João Victor Oliveira
-    data: 31-08-2025
+                                Arv* copia (Arv*a);
 
 
 */
@@ -78,18 +76,16 @@ int busca_elemento(Arvore* raiz, int valor){
 
 }
 // Implementa copia().
-Arvore* copia(Arvore* original){
-    // Verifica se a árvore original está vazia
+Arvore* copia_arvore(Arvore* original){
+    // Arvore vazia
     if(arvore_vazia(original))
-        return NULL; // retorna um ponteiro nulo em caso afirmativo
+        return NULL;
 
-    // Caso a arvore não esteja vazia
-    Arvore *copia = original;
-    Arvore *auxiliar = copia;
-    // Faz chamadas recursivas:
-    cria_arvore(auxiliar->esquerda->info, auxiliar->esquerda->esquerda, auxiliar->esquerda->direita);
-    cria_arvore(auxiliar->direita->info, auxiliar->direita->esquerda, auxiliar->direita->direita);
+    Arvore *copia = cria_arvore(original->info, NULL, NULL);
 
+    copia->esquerda = copia_arvore(original->esquerda);
+    copia->direita = copia_arvore(original->direita);
+    
     return copia;
 
 }

@@ -29,3 +29,5 @@ void exibir_arvore(Arvore*);
 Arvore* libera_arvore(Arvore*);
 // Função para verificiar se árvore possui determinado valor. Tem como parâmetros ponteiro de arvore e int valor referente ao valor a ser buscado. Seu retorno é do tipo inteiro
 int busca_elemento(Arvore*, int);
+// Função para remover folha
+Arvore* remove(Arvore*, int);

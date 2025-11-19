@@ -22,11 +22,11 @@ int main() {
         cria_arvore(
             12,
             cria_arvore(4, NULL, NULL),
-            cria_arvore(7, NULL, NULL)
+            cria_arvore(8, NULL, NULL)
         ),
         cria_arvore(
             20,
-            cria_arvore(15, NULL, NULL),
+            cria_arvore(16, NULL, NULL),
             cria_arvore(25, NULL, NULL)
         )
     );

@@ -76,20 +76,20 @@ int busca_elemento(Arvore* raiz, int valor){
     return raiz->info == valor || busca_elemento(raiz->esquerda, valor) || busca_elemento(raiz->direita, valor); // utiliza recursão para buscar elemento.
 
 }
-// Implementa pares().
-int folhas(Arvore* raiz){
-    // Verifica se a árvore está vazia
+// Implementa folhas().
+int folhas(Arvore *raiz){
+    // Verifica se árvore é vazia
     if(arvore_vazia(raiz))
         return 0;
-    
-    int nFolhas = 0; // cria variável para armazenar o número de folhas.
+
+    int nFolhas = 0;   
+
     if(raiz->esquerda == NULL && raiz->direita == NULL)
-        nFolhas++; // incrementa caso o nó seja uma folha.
-    // faz chamadas recursivas da função
-    nFolhas += folhas(raiz->esquerda);
-    nFolhas += folhas(raiz->direita);
+        nFolhas++;
     
+    nFolhas = nFolhas + folhas(raiz->esquerda);
+    nFolhas = nFolhas + folhas(raiz->direita);
 
-    return nFolhas;
-
+    return nFolhas + folhas(raiz->esquerda) + folhas(raiz->direita);
+    
 }

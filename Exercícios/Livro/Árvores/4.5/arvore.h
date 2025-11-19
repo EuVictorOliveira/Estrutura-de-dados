@@ -30,4 +30,4 @@ Arvore* libera_arvore(Arvore*);
 // Função para verificiar se árvore possui determinado valor. Tem como parâmetros ponteiro de arvore e int valor referente ao valor a ser buscado. Seu retorno é do tipo inteiro
 int busca_elemento(Arvore*, int);
 // Função para fazer copia de uma árvore
-Arvore* copia(Arvore* raiz);
+Arvore* copia_arvore(Arvore* raiz);

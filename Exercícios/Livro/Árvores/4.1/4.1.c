@@ -78,20 +78,18 @@ int busca_elemento(Arvore* raiz, int valor){
     return raiz->info == valor || busca_elemento(raiz->esquerda, valor) || busca_elemento(raiz->direita, valor); // utiliza recursão para buscar elemento.
 
 }
-// Implementa pares().
+// Implementa pares()
 int pares(Arvore* raiz){
-    // Verifica se a árvore está vazia
-    if(arvore_vazia(raiz))
+    // verifica se a raiz é nula
+    if(arvore_vazia(raiz))  // caso base da recursão
         return 0;
-    
-    int nPares = 0; // cria variável para armazenar os pares
+
+    int nPares = 0; // inicializa com 0
     if(raiz->info % 2 == 0)
         nPares++;
-    // faz chamadas recursivas da função
-    nPares += pares(raiz->esquerda);
-    nPares += pares(raiz->direita);
-    
+
+    nPares = nPares + pares(raiz->esquerda);
+    nPares = nPares + pares(raiz->direita);
 
     return nPares;
-
 }

@@ -73,3 +73,26 @@ int busca_elemento(Arvore* raiz, int valor){
     return raiz->info == valor || busca_elemento(raiz->esquerda, valor) || busca_elemento(raiz->direita, valor); // utiliza recursão para buscar elemento.
 
 }
+// Implementa remove()
+Arvore* remove(Arvore *raiz, int valor){
+    // Verifica se a árvore está vazia
+    if(arvore_vazia(raiz))
+        return NULL;
+
+    if(valor < raiz->info)
+        raiz->esquerda = remove(raiz->esquerda, valor);
+    else if(valor > raiz->info)
+        raiz->direita = remove(raiz->direita, valor);
+    else{
+        if(raiz->esquerda == NULL && raiz->direita == NULL){
+            free(raiz);
+
+            printf("Elemento removido com sucesso.\n");
+            return NULL;
+        }else
+            printf("Elemento encontrado nao eh folha.\n");
+    }
+
+    return raiz;
+
+}

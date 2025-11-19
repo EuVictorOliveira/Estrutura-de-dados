@@ -14,7 +14,7 @@ int main() {
                 /    \
               12       20
              / \     /  \
-            4   7   15   NULL
+            4   NULL   15   NULL
     */
 
     Arvore* raiz = cria_arvore(
@@ -22,7 +22,7 @@ int main() {
         cria_arvore(
             12,
             cria_arvore(4, NULL, NULL),
-            cria_arvore(7, NULL, NULL)
+            NULL
         ),
         cria_arvore(
             20,

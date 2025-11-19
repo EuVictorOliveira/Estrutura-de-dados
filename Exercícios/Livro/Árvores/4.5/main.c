@@ -36,7 +36,7 @@ int main() {
     exibir_arvore(a);
     printf("\n");
 
-    Arvore* b = copia(a);
+    Arvore* b = copia_arvore(a);
     printf("Exibindo arvore (pre-ordem): ");
     exibir_arvore(b);
     printf("\n");

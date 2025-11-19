@@ -34,7 +34,7 @@ int main() {
     Arvore* b = cria_arvore(
         10,
         cria_arvore(
-            11,
+            12,
             cria_arvore(4, NULL, NULL),
             cria_arvore(7, NULL, NULL)
         ),

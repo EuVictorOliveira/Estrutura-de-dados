@@ -303,3 +303,16 @@ Arvore* remove_folha(Arvore* raiz, int valor) {
 
     return raiz;
 }
+
+
+typedef struct lista{
+    char vertice;
+    int peso;
+    struct lista *proximo;
+} Lista;
+
+typedef struct lista_adj{
+    char vertice;
+    Lista *relacionado;
+    struct lista_adj *proximo;
+} Lista_adj;

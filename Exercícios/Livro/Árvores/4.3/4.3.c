@@ -78,18 +78,18 @@ int busca_elemento(Arvore* raiz, int valor){
 }
 // Implementa um_filho().
 int um_filho(Arvore* raiz){
-    // verifica se a árvore está vazia
+    
     if(arvore_vazia(raiz))
         return 0;
 
-    int nFilhoUnico = 0; // cria variável que representa número de nós com um único filho.
-    if(((raiz->esquerda != NULL) && (raiz->direita == NULL)) || ((raiz->esquerda == NULL) && (raiz->direita != NULL))) // incrementa variável caso o nó atual tenha um único filho
-        nFilhoUnico++;
-    // Faz chamadas recursisvas
-    nFilhoUnico += um_filho(raiz->esquerda);
-    nFilhoUnico += um_filho(raiz->direita);
+    int umFilho = 0;
 
-    // retorna valor final.
-    return nFilhoUnico;
+    if((raiz->esquerda != NULL && raiz->direita == NULL) || (raiz->esquerda == NULL && raiz->direita != NULL))
+        umFilho++;
+
+    umFilho = umFilho + um_filho(raiz->esquerda);
+    umFilho = umFilho + um_filho(raiz->direita);
+
+    return umFilho;
 
 }
